@@ -1,16 +1,20 @@
 package org.AssigmentExceptionsAndLogging;
 
+import java.time.LocalDate;
+
 public class Student {
 
-    private String firstName;
-    private String lastName;
-    private int dateOfBirth;
-    private String gender;
-    private String id;
+    private final String firstName;
+    private final String lastName;
+    private final LocalDate dateOfBirth;
+    private final String gender;
+    private final String id;
 
-    private final int currentYear = 2018;
+    LocalDate currentYear = LocalDate.now();
 
-    public Student(String firstName, String lastName, int dateOfBirth, String gender, String id) {
+
+
+    public Student(String firstName, String lastName, LocalDate dateOfBirth, String gender, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -21,7 +25,7 @@ public class Student {
 
     public int calculateAge() {
 
-        return currentYear - this.dateOfBirth;
+        return currentYear.getYear() - this.dateOfBirth.getYear();
     }
 
     public String getFirstName() {
@@ -34,7 +38,7 @@ public class Student {
 
 
     public int getDateOfBirth() {
-        return dateOfBirth;
+        return dateOfBirth.getYear();
     }
 
 
@@ -55,4 +59,5 @@ public class Student {
                 + id +
                 ']';
     }
+
 }

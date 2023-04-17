@@ -1,5 +1,6 @@
 package org.AssigmentExceptionsAndLogging;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,15 +8,19 @@ public class StudentRepository {
 
     List<Student> studentList = new ArrayList<>();
 
-    private final int currentYear = 2018;
+    LocalDate currentYear = LocalDate.now();
+
 
     public void addStudent(Student student) throws ValidationException {
 
-        if (student.getDateOfBirth() < 1900 || student.getDateOfBirth() > currentYear) {
-            throw new ValidationException("Date of birth needs to be between 1900 and 2018.");
+        if (student == null) {
+            throw new ValidationException("Student can't be null.");
+        }
+        if (student.getDateOfBirth() < 1900 || student.getDateOfBirth() > currentYear.getYear()) {
+            throw new ValidationException("Date of birth needs to be between 1900 and 2023.");
         }
         if (student.getFirstName() == null || student.getLastName() == null) {
-            throw new ValidationException("First name or last name can't null.");
+            throw new ValidationException("First name or last name can't be null.");
         }
         if (student.getFirstName().equalsIgnoreCase("") ||
                 student.getLastName().equalsIgnoreCase("")) {
@@ -27,6 +32,7 @@ public class StudentRepository {
             throw new ValidationException("Gender can only be male of female.");
         }
 
+
         studentList.add(student);
 
     }
@@ -37,6 +43,7 @@ public class StudentRepository {
             throw new ValidationException("Student's ID is empty.");
         }
 
+
         for (int i = 0; i < studentList.size(); i++) {
             if (id.equalsIgnoreCase(studentList.get(i).getId())) {
                 studentList.remove(studentList.get(i));
@@ -44,7 +51,9 @@ public class StudentRepository {
         }
     }
 
-    public void retrieveAllStudents(Integer age) throws ValidationException {
+    public List<Student> retrieveAllStudents(int age) throws ValidationException {
+
+        List<Student> studentsWithSpecificAge = new ArrayList<>();
 
         if (age <= 0) {
             throw new ValidationException("Age must be greater than 0.");
@@ -52,10 +61,13 @@ public class StudentRepository {
 
         for (Student student : studentList) {
             if (student.calculateAge() == age) {
-                System.out.println(student.getFirstName() + " " + student.getLastName() + " - age "
-                        + student.calculateAge());
+                studentsWithSpecificAge.add(student);
             }
+
         }
+
+        System.out.println("Students with the age " + age + " are " + studentsWithSpecificAge);
+        return studentsWithSpecificAge;
 
     }
 
@@ -67,5 +79,6 @@ public class StudentRepository {
         }
 
     }
+
 
 }
