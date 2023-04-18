@@ -13,7 +13,6 @@ public class Student {
     LocalDate currentYear = LocalDate.now();
 
 
-
     public Student(String firstName, String lastName, LocalDate dateOfBirth, String gender, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,7 +51,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "[ " + firstName + ", " +
+        return "[" + firstName + ", " +
                 lastName + ", dateOfBirth: " +
                 dateOfBirth + ",Gender: " +
                 gender + ",ID: "

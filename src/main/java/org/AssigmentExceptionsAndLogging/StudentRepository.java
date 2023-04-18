@@ -66,18 +66,25 @@ public class StudentRepository {
 
         }
 
-        System.out.println("Students with the age " + age + " are " + studentsWithSpecificAge);
+        System.out.println("Students with the age " + age + ":");
+        studentsWithSpecificAge.forEach(System.out::println);
         return studentsWithSpecificAge;
 
     }
 
-    public void listStudent() {
+    public List<Student> listStudent() throws ValidationException {
 
         studentList.sort(new DateOfBirthComparator());
         for (Student student : studentList) {
-            System.out.println(student);
-        }
+            if (student == null) {
+                throw new ValidationException("Input is empty.");
+            }
 
+        }
+        studentList.sort(new DateOfBirthComparator());
+        studentList.forEach(System.out::println);
+
+        return studentList;
     }
 
 
